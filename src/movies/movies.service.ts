@@ -25,17 +25,21 @@ export class MoviesService {
   }
 
   create(movieData: CreateMovieDTO) {
-    this.movies.push({
-      id: this.movies.length + 1,
-      ...movieData,
-    });
+    // const newMovie: Movie = {
+    //   id: this.movies.length + 1,
+    //   ...movieData,
+    // };
+    const newMovie = new Movie({ id: this.movies.length + 1, ...movieData });
+
+    this.movies.push(newMovie);
     return this.movies.at(-1);
   }
 
   update(id: number, updateData: UpdateMovieDTO) {
     const movie = this.getOne(id);
     this.deleteOne(id);
-    this.movies.push({ ...movie, ...updateData });
+    const newMovie = new Movie({ ...movie, ...updateData });
+    this.movies.push(newMovie);
     return this.movies.at(-1);
   }
 }
